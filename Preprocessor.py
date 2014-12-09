@@ -59,8 +59,8 @@ class Preprocessor(object):
             print 'Error in tokenizing: %s' % line
             
     
-    def process_training_data(self):
-        with open('dataset/train/train-data-1') as textfile:
+    def process_training_data(self,path):
+        with open(path) as textfile:
             counter = 0
             for line in textfile:
                 line = line.rstrip('\n')
@@ -75,8 +75,8 @@ class Preprocessor(object):
             np.save('bin_data/training-data',self.data)
     
     
-    def process_test_data(self):
-        with open('dataset/test/test-data-1') as textfile:
+    def process_test_data(self,path):
+        with open(path) as textfile:
             counter = 0
             for line in textfile:
                 line = line.rstrip('\n')
@@ -88,17 +88,26 @@ class Preprocessor(object):
                 counter += 1
             
             np.save('bin_data/testing-data',self.data)
+    
+    
+    def process_custom_data(self,path):
+        with open(path) as textfile:
+            counter = 0
+            for line in textfile:
+                line = line.rstrip('\n')
+                data = line.split('\t')
+                
+                self.data[counter] = {}
+                self.process_message(data[1],counter)
+                
+                counter += 1
+            
+            np.save('bin_data/custom-data',self.data)
+    
+    
+    
+    
             
 
 
 
-
-
-def main():
-    pp = Preprocessor()
-    #pp.process_training_data()
-    pp.process_test_data()
-
-
-
-main()

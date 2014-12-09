@@ -72,18 +72,29 @@ class FeatureModel(object):
         
         computed_data = { 'samples' : samples, 'labels' : labels }
         np.save('bin_data/'+purpose+'_fv',computed_data)
+    
+    
+    def compute_custom_fv_matrix(self,purpose):
+        data = np.load('bin_data/'+purpose+'-data.npy').item()
+        
+        features = np.load('bin_data/features.npy').item()
+        feature_count = len(features) + 3
+        
+        samples = []
+        
+        for msg_index in data:
+            msg_item = data[msg_index]
+            
+            fv = self.get_fv_from_msg_item(msg_item,features,feature_count)
+            
+            samples.append(fv.flatten())
+        
+        samples = np.array(samples)
+        
+        computed_data = { 'samples' : samples }
+        np.save('bin_data/'+purpose+'_fv',computed_data)
             
             
             
         
-    
 
-
-def main():
-    fm = FeatureModel()
-    #fm.extract_features()
-    #fm.compute_fv_matrix('training')
-    fm.compute_fv_matrix('testing')
-    
-
-main()

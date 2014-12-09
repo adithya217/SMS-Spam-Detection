@@ -3,29 +3,16 @@ from datetime import datetime
 
 class Tester(object):
     
-    def __init__(self):
-        td = np.load('bin_data/testing_fv.npy').item()
+    def __init__(self,dpath,cpath):
+        td = np.load(dpath).item()
         self.samples = td['samples']
         self.labels = td['labels']
+        
+        self.classifier = np.load(cpath).item()
     
     
     def test_MNB_classifier(self):
-        classifier = np.load('bin_data/mnb-classifier.npy').item()
-        print classifier.score(self.samples,self.labels)
+        print self.classifier.score(self.samples,self.labels)
         
         
 
-def main():
-    started = datetime.now()
-    
-    tester = Tester()
-    tester.test_MNB_classifier()
-    
-    finished = datetime.now()
-    
-    print 'Started at: ',started
-    print 'Finished at: ',finished
-    print 'Time taken: ',(finished-started)
-    
-
-main()
