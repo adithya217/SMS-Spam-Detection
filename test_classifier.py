@@ -8,7 +8,7 @@ def main():
     cpath = 'bin_data/mnb-classifier.npy'
     
     tester = Tester(tdpath,cpath)
-    tester.test_MNB_classifier()
+    tester.test_classifier()
     
     finished = datetime.now()
     

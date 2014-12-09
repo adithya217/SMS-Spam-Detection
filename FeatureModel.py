@@ -91,7 +91,7 @@ class FeatureModel(object):
         
         samples = np.array(samples)
         
-        computed_data = { 'samples' : samples }
+        computed_data = { 'samples' : samples, 'labels' : np.array([]) }
         np.save('bin_data/'+purpose+'_fv',computed_data)
             
             

@@ -11,8 +11,28 @@ class Tester(object):
         self.classifier = np.load(cpath).item()
     
     
-    def test_MNB_classifier(self):
+    def test_classifier(self):
         print self.classifier.score(self.samples,self.labels)
+    
+    
+    def predict_label(self,sample):
+        return self.classifier.predict(sample)
+        
+        
+    def predict_labels_for_custom_data(self,data):
+        results = {}
+        index = 0
+        
+        for fv in self.samples:
+            msg = data[index]['msg']
+            
+            #print msg,fv
+            
+            results[msg] = self.predict_label(fv)
+            index += 1
+        
+        return results
+        
         
         
 

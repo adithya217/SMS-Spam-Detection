@@ -95,10 +95,9 @@ class Preprocessor(object):
             counter = 0
             for line in textfile:
                 line = line.rstrip('\n')
-                data = line.split('\t')
                 
-                self.data[counter] = {}
-                self.process_message(data[1],counter)
+                self.data[counter] = {'msg':line}
+                self.process_message(line,counter)
                 
                 counter += 1
             

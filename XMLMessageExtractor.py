@@ -1,14 +1,23 @@
-from xml.etree import ElementTree as ET
+import re
 
-with open('dataset/smsCorpus_en_2014.09.06_all.xml','r') as xmlfile:
-    tree = ET.parse(xmlfile)
-    root = tree.getroot()
-
-with open('dataset/test/sms-data','w') as textfile:
-    for message in root.findall('message'):
-        smstext = message.find('text').text
-        #print smstext
-        line = smstext.encode('utf-8') + '\n'
-        textfile.write(line)
+with open('dataset/test/sms-data','w') as outfile:
+    regexp = re.compile('<text>(.+)</text>')
     
-    textfile.close()
+    with open('dataset/smsCorpus_en_2014.09.06_all.xml','r') as xmlfile:
+        for line in xmlfile:
+            line = line.rstrip('\n')
+            
+            matches = re.findall(regexp,line)
+            
+            if len(matches) == 0:
+                continue
+            
+            text = matches[0]
+            
+            if not text.strip():
+                continue
+            
+            line = text + '\n'
+            outfile.write(line)
+            
+        outfile.close()
