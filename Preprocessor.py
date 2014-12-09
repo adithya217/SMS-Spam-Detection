@@ -12,13 +12,9 @@ class Preprocessor(object):
         self.data = {}
         
         
-    def save_to_disk(self):
-        np.save('bin_data/tokens',self.tokens)
-        np.save('bin_data/data',self.data)
-    
-    
     def process_tokens(self,tokens,counter):
         numerics_count = 0
+        bow = {}
         
         for token in tokens:
             if re.match(self.numeric_token,token):
@@ -31,8 +27,15 @@ class Preprocessor(object):
                 self.tokens[token] += 1
             else:
                 self.tokens[token] = 1
+            
+            if token in bow:
+                bow[token] += 1
+            else:
+                bow[token] = 1
         
         self.data[counter]['nt_count'] = numerics_count
+        
+        return bow
     
     
     def process_extra_features(self,line,counter):
@@ -46,9 +49,9 @@ class Preprocessor(object):
     def process_message(self,line,counter):
         try:
             tokens = nltk.word_tokenize(line.decode('utf-8'))
-            self.process_tokens(tokens,counter)
+            bow = self.process_tokens(tokens,counter)
             
-            self.data[counter]['tokens'] = tokens
+            self.data[counter]['bow'] = bow
             self.process_extra_features(line,counter)
         except (KeyboardInterrupt, SystemExit):
             raise
@@ -68,6 +71,24 @@ class Preprocessor(object):
                 
                 counter += 1
             
+            np.save('bin_data/training-tokens',self.tokens)
+            np.save('bin_data/training-data',self.data)
+    
+    
+    def process_test_data(self):
+        with open('dataset/test/test-data-1') as textfile:
+            counter = 0
+            for line in textfile:
+                line = line.rstrip('\n')
+                data = line.split('\t')
+                
+                self.data[counter] = {'label':data[0]}
+                self.process_message(data[1],counter)
+                
+                counter += 1
+            
+            np.save('bin_data/testing-data',self.data)
+            
 
 
 
@@ -75,8 +96,8 @@ class Preprocessor(object):
 
 def main():
     pp = Preprocessor()
-    pp.process_training_data()
-    pp.save_to_disk()
+    #pp.process_training_data()
+    pp.process_test_data()
 
 
 
