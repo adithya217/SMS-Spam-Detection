@@ -28,6 +28,8 @@ def main():
         
         textfile.close()
     
+    print 'Results written to results.txt'
+    
 
 main()
 

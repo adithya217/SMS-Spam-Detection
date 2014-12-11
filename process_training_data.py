@@ -1,9 +1,9 @@
 from Preprocessor import Preprocessor
+from sys import argv
 
 def main():
     pp = Preprocessor()
-    #tdpath = 'dataset/train/train-data-1'
-    tdpath = 'dataset/train/training-data-full'
+    tdpath = argv[1]
     pp.process_training_data(tdpath)
 
 
