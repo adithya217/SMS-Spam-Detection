@@ -40,6 +40,7 @@ Tester reads the classifier, predicts labels and computes accuracy scores from t
 
 XMLMessageExtractor.py is a utility program to extract the TextMessages from smsCorpus_en.xml data file.
 It stores the data into the file at dataset/test/sms-data
+For size concerns, this project doesn't contain the smsCorpus_en xml file, but the processed messages file is present in the sms-data file.
 
 Remaining python scripts are named according to their tasks:
 
