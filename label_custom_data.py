@@ -21,7 +21,7 @@ def main():
     print 'predicting labels for custom data...'
     results = tester.predict_labels_for_custom_data(data)
     
-    with open('results.txt','w') as textfile:
+    with open('output/results.txt','w') as textfile:
         for msg in results:
             line = '%s -> %s\n' % (msg,results[msg])
             textfile.write(line)

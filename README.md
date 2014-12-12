@@ -10,7 +10,7 @@ Prerequisites for running this project are:
 
 Python-2.x(used 2.7.6)
 Numpy-1.8.x(used 1.8.2)
-scikit-learn-0.15(used 0.15.2)
+scikit-learn-0.15.x(used 0.15.2)
 
 
 Dataset:
@@ -62,10 +62,10 @@ The sh commands must be run from this project folder's base/root level
 
 normal-flow.sh processes, trains and computes accuracy from the 70-30 split data.
 custom-flow.sh processes and trains from 100% data, and then predicts the labels for the sms-data
-file built from smsCorpus_en.xml. The results(label-suffixed-messages) are written to results.txt
+file built from smsCorpus_en.xml. The results(label-suffixed-messages) are written to output/results.txt
 
 
-Project implementation details are present in Report.pdf
+Project implementation details are present in report/report.pdf
 
 
 
