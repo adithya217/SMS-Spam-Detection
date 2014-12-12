@@ -1,3 +1,3 @@
 bin_data/*
-dataset/*
+dataset/spam-dataset/*
 *.pyc
